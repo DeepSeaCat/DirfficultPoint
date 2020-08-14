@@ -214,6 +214,16 @@ p1.age=10;
   * 形参列表：必须不同
   * 返回类型：无要求
 
+* 重写
+
+  * 方法名必须相同
+  * 形参列表必须相同
+  * 返回值类型
+    * void和基本数据类型：必须相同
+    * 引用数据类型:<=
+
+  * 权限修饰符：>=
+
 ##### 12.属性与局部变量
 
 * 声明的位置不同
@@ -248,3 +258,117 @@ p1.age=10;
 * 修饰符
   * 成员变量：有很多修饰符，例如：public,private,static等
   * 局部变量：不能有修饰符
+
+##### 13.权限修饰符
+
+| 修饰符    | 本类 | 本包 | 其他包的子类 | 其他包的非子类 |
+| --------- | ---- | ---- | ------------ | -------------- |
+| private   | √    | ×    | ×            | ×              |
+| 缺省      | √    | √    | ×            | ×              |
+| protected | √    | √    | √            | ×              |
+| public    | √    | √    | √            | √              |
+
+* 权限修饰符可以修饰什么？
+  * 成员变量、成员方法、构造器、成员内部类
+  * 外部类：缺省和public
+
+##### 14.比较
+
+* == 
+  * 如果是基本数据类型，比较数据
+  * 如果是引用类型，比较地址
+
+* equals
+  * 只能判断引用类型，比较其内容
+
+##### 15.final
+
+* 修饰类：不能被继承
+* 修饰方法：不能被重写
+* 修饰变量：值不能修改，即常量
+
+##### 16.类什么时候被加载
+
+* 创建对象实例
+* 创建之列对象实例，父类也会被加载
+* 使用类的静态成员
+
+##### 17.单例模式
+
+* 什么是单例模式？
+  * 保证整个系统中一个类只有一个对象的实例，实现这种功能的方式就叫单例模式。
+
+* 饿汉式
+
+  ```java
+  JAvaBean
+  public class Single{
+      private static final Single instabce = new Single();
+      private single(){
+          
+      }
+      public static Single get Insatance(){
+          return instance;
+      }
+  }
+  ```
+
+  ```java
+  新枚举
+  public enum Single{
+  	INSTANCE
+  }
+  ```
+
+  ```java
+  老枚举
+  public class Single{
+      public static fianl Single instance =new Single();
+      private Single(){
+          
+      }
+  }
+  ```
+
+  
+
+* 懒汉式
+
+  ```java
+  锁模式
+  public class Single{
+      private static Single instance;
+      private Single(){
+          
+      }
+      public static Single getInsance(){
+          if(intstance ==null){
+              synchronized(Single.class){
+                  if(instance ==null){
+                      instance =new Single();
+                  }
+              }
+          }
+          retuen instance;
+      }
+      
+  }
+  ```
+
+  ```java
+  静态内部类
+  public class SIngle{
+  	private Single(){
+  
+  	}
+      public static Single getInstance(){
+      	return Inner.instance;
+      }
+      private static class Inner{
+      	private static Single instance = new Single();
+      }
+  }
+  ```
+
+  
+
